@@ -1,8 +1,6 @@
 package teamproject;
-/***1. 판 num 바뀌는 부분에서 백도 수정 필요
- * 2. 윷, 모 나온 후 상대 말 잡았을 때 한번 더 안던지는 거 수정 필요(모로 잡았을 때도 던지게 수정)
- * 3. 윷, 모로 상대 말 잡았을 때 차례가 상대로 넘어가는 거 수정 필요(해결)
- * 4. player1 윷, 모 나왔을 때 한번 더 안던지는 거 수정 필요(해결)
+/***1. 말 이동시 작은 칸인데 큰 칸으로 표시되는 문제 수정 필요
+ * 2. 턴 넘어갈 때 두 번 던지는 경우 존재
  * */
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,13 +23,71 @@ import javax.swing.JTextField;
 import java.util.ArrayList;
 
 public class Pan extends JFrame implements ActionListener{
+	private int player1Nammal = 0;
+	private int player2Nammal = 0;	
+	private boolean turn = true;
+	private String resText = "?";
+	private yut yourYut = new yut();
+//	private Pplayer player1 = new Pplayer();
+//	private Pplayer player2 = new Pplayer();
 	public static final int WIDTH = 1000;
 	public static final int HEIGHT = 720;
+	public static final int POINT_SIZE = 30;	
+	private JLabel resLabel = new JLabel(resText);
+	private JLabel yutLabel1 = new JLabel();			
+	private JLabel yutLabel2 = new JLabel();			
+	private JLabel yutLabel3 = new JLabel();			
+	private JLabel yutLabel4 = new JLabel();	
+	
+	JPanel choose1Panel = new JPanel();
+	JPanel choose2Panel = new JPanel();
+	
+	
+	
+	//이미지 경로
+	String playerCheckImage;
+	String playerCheckPath;
+	ImageIcon CheckIcon;
+	String player1mallImage;
+	String player1mallPath;
+	ImageIcon player1mallIcon;
+	String player2mallImage;
+	String player2mallPath;
+	ImageIcon player2mallIcon;
+	String WhiteImage;
+	String WhitePath;
+	ImageIcon WhiteIcon;
+	String frontYutImage;
+	String frontYutPath;
+	ImageIcon frontYutIcon;
+	String rearYutImage;
+	String rearYutPath;
+	ImageIcon rearYutIcon;
+	String backDoImage;
+	String backDoPath;
+	ImageIcon backDoIcon;
+	JPanel PlayerPanel;
+	JButton clickButton;
+	
+	boolean []redVisible = new boolean[5];
+	boolean []yellowVisible = new boolean[5];
+	
+	static String Src = "src";
+	static String Package = "teamproject";
+	//윷 움짤 이미지
+	String yutImage = "";
+	String yutPath = "";
+	ImageIcon yutIcon = new ImageIcon(yutPath);
+	//결과 표시되는 글씨 관련해서 넣을 것, 이미지로 가져오면 도개걸윷모빽도 총 6개의 이미지를 가져와야 된다
+	String resImage = "";
+	String resPath = "";
+	ImageIcon resIcon = new ImageIcon(resPath);
+	
 	public static final int TEXT_FIELD_SIZE = 10;
 	public static final String srcPath = "src";
 	public static final String packageName = "teamproject";
 	
-	JFrame comp = new JFrame();
+	JPanel comp = new JPanel();
 	JPanel btnPanel = new JPanel();
 	JPanel pan;
 	
@@ -45,14 +101,44 @@ public class Pan extends JFrame implements ActionListener{
 	ImageIcon exist2;
 	ImageIcon bgEx2;
 	
+	ImageIcon R1exist;
+	ImageIcon R2exist;
+	ImageIcon R3exist;
+	ImageIcon R4exist;
+	
+	ImageIcon Y1exist;
+	ImageIcon Y2exist;
+	ImageIcon Y3exist;
+	ImageIcon Y4exist;
+	
+	ImageIcon R1bgexist;
+	ImageIcon R2bgexist;
+	ImageIcon R3bgexist;
+	ImageIcon R4bgexist;
+	
+	ImageIcon Y1bgexist;
+	ImageIcon Y2bgexist;
+	ImageIcon Y3bgexist;
+	ImageIcon Y4bgexist;
+	
 	Malll[] P1 = new Malll[2];
 	Malll[] P2 = new Malll[2];
+	
+	JButton redmall1Button;
+	JButton redmall2Button;
+	JButton redmall3Button;
+	JButton redmall4Button;
+	
+	JButton yellowMall1Button;
+	JButton yellowMall2Button;
+	JButton yellowMall3Button;
+	JButton yellowMall4Button;
 	
 	boolean player1 = true;
 	boolean player2 = false;
 	
-	boolean chance1 = true;
-	boolean chance2 = true;
+	boolean chance1 = false;
+	boolean chance2 = false;
 	
 	public int p1cnt = 0;
 	public int p2cnt = 0;
@@ -90,7 +176,6 @@ public class Pan extends JFrame implements ActionListener{
 	
 	public Pan() {
 		comp.setSize(WIDTH, HEIGHT);
-		comp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		comp.setBackground(Color.WHITE);
 		comp.setLayout(null);
 		
@@ -122,6 +207,26 @@ public class Pan extends JFrame implements ActionListener{
 		String exbutton2 = "exist2.png";
 		String bigEx2 = "bigexist2.png";
 		
+		String r1exist = "existr1.png";
+		String r2exist = "existr2.png";
+		String r3exist = "existr3.png";
+		String r4exist = "existr4.png";
+		
+		String y1exist = "existy1.png";
+		String y2exist = "existy2.png";
+		String y3exist = "existy3.png";
+		String y4exist = "existy4.png";
+		
+		String r1bgexist = "bigexistr1.png";
+		String r2bgexist = "bigexistr2.png";
+		String r3bgexist = "bigexistr3.png";
+		String r4bgexist = "bigexistr4.png";
+		
+		String y1bgexist = "bigexisty1.png";
+		String y2bgexist = "bigexisty2.png";
+		String y3bgexist = "bigexisty3.png";
+		String y4bgexist = "bigexisty4.png";
+		
 		btn1 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+button1);
 		btn2 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+button2);
 		btnch = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+btonCh);
@@ -132,9 +237,29 @@ public class Pan extends JFrame implements ActionListener{
 		exist2 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+exbutton2);
 		bgEx2 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+bigEx2);
 		
-		JButton click = new JButton("click");
-		click.addActionListener(this);
-		btnPanel.add(click);
+		R1exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r1exist);
+		R2exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r2exist);
+		R3exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r3exist);
+		R4exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r4exist);
+		
+		Y1exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y1exist);
+		Y2exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y2exist);
+		Y3exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y3exist);
+		Y4exist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y4exist);
+		
+		R1bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r1bgexist);
+		R2bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r2bgexist);
+		R3bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r3bgexist);
+		R4bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+r4bgexist);
+		
+		Y1bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y1bgexist);
+		Y2bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y2bgexist);
+		Y3bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y3bgexist);
+		Y4bgexist = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+y4bgexist);
+		
+		//JButton click = new JButton("click");
+		//click.addActionListener(this);
+		//btnPanel.add(click);
 		
 		for(int i=0;i<2;i++) {
 			P1[i] = new Malll();
@@ -165,7 +290,7 @@ public class Pan extends JFrame implements ActionListener{
 		btn[1].setFocusPainted(false);
 		btn[1].setContentAreaFilled(false);
 		btn[1].addActionListener(this);
-
+		
 		image[2] = new JLabel(btn2);
 		image[2].setBounds(535, 545-225, 100, 120);
 		
@@ -467,6 +592,7 @@ public class Pan extends JFrame implements ActionListener{
 		
 		
 		for(i=0; i<71; i++) {
+			btn[i].setEnabled(false);
 			pan.add(btn[i]);
 			ch1[i] = false;
 			ch2[i] = false;
@@ -481,8 +607,287 @@ public class Pan extends JFrame implements ActionListener{
 			P2[i] = new Malll();
 		}
 		
+		/*****************************************************************/
+		
+		
+		
+		
+		//------------------------------------------------------------------------------
+		//chooseMall 말 선택하는 부분으로 평소에는 unvisible 해놨다가 click을 눌렀을 때 visible하게 바꾼다.
+		//chooseMall인데 Player1일때 choose를 하는 것으로 프로그램을 짜보자	
+		
+		
+		String redmallbutton1 = "red1.png";
+		String redmallbutton2 = "red2.png";
+		String redmallbutton3 = "red3.png";
+		String redmallbutton4 = "red4.png";
+		
+		ImageIcon redmall1 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+redmallbutton1);
+		ImageIcon redmall2 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+redmallbutton2);
+		ImageIcon redmall3 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+redmallbutton3);
+		ImageIcon redmall4 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+"/"+redmallbutton4);
+		
+		
+		//choose1Panel.setVisible(false);
+		choose1Panel.setLayout(null);
+		choose1Panel.setBounds(160, 310, 400, 100);
+		choose1Panel.setBackground(Color.white);
+		
+		redmall1Button = new JButton();
+		redmall1Button.setBounds(0,10,100,100);
+		redmall1Button.setBorderPainted(false);
+		redmall1Button.setFocusPainted(false);
+		redmall1Button.setContentAreaFilled(false);		
+		redmall1Button.addActionListener(this);
+		redmall1Button.setIcon(redmall1);
+		
+		redmall2Button = new JButton("2");
+		redmall2Button.setBounds(100,10,100,100);
+		redmall2Button.setBorderPainted(false);
+		redmall2Button.setFocusPainted(false);
+		redmall2Button.setContentAreaFilled(false);		
+		redmall2Button.addActionListener(this);		
+		redmall2Button.setIcon(redmall2);
+		
+		
+		
+		redmall3Button = new JButton();
+		redmall3Button.setBounds(200,10,100,100);
+		redmall3Button.setBorderPainted(false);
+		redmall3Button.setFocusPainted(false);
+		redmall3Button.setContentAreaFilled(false);		
+		redmall3Button.addActionListener(this);		
+		redmall3Button.setIcon(redmall3);
+		
+		
+		redmall4Button = new JButton();
+		redmall4Button.setBounds(300,10,100,100);
+		redmall4Button.setBorderPainted(false);
+		redmall4Button.setFocusPainted(false);
+		redmall4Button.setContentAreaFilled(false);		
+		redmall4Button.addActionListener(this);		
+		redmall4Button.setIcon(redmall4);	
+		
+		
+		choose1Panel.add(redmall1Button);		
+		choose1Panel.add(redmall2Button);		
+		choose1Panel.add(redmall3Button);		
+		choose1Panel.add(redmall4Button);
+		choose1Panel.setVisible(false);
+		
+		
+		
+		//chooseMall 말 선택하는 부분으로 평소에는 unvisible 해놨다가 click을 눌렀을 때 visible하게 바꾼다.
+		//chooseMall인데 Player2일때 choose를 하는 것으로 프로그램을 짜보자
+				
+			
+				
+		String yellowmallbutton1 = "yellow1.png";
+		String yellowmallbutton2 = "yellow2.png";
+		String yellowmallbutton3 = "yellow3.png";
+		String yellowmallbutton4 = "yellow4.png";
+			
+		ImageIcon yellowmall1 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+ "/" + yellowmallbutton1);
+		ImageIcon yellowmall2 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+ "/" + yellowmallbutton2);
+		ImageIcon yellowmall3 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+ "/" + yellowmallbutton3);
+		ImageIcon yellowmall4 = new ImageIcon(currentProjPath+"/"+srcPath+"/"+packageName+ "/" + yellowmallbutton4);
+				
+			
+		choose2Panel.setVisible(false);
+		choose2Panel.setLayout(null);
+		choose2Panel.setBounds(160, 310, 400, 100);
+				
+		yellowMall1Button = new JButton();
+		yellowMall1Button.setBounds(0,10,100,100);
+		yellowMall1Button.setBorderPainted(false);
+		yellowMall1Button.setFocusPainted(false);
+		yellowMall1Button.setContentAreaFilled(false);		
+		yellowMall1Button.addActionListener(this);
+		yellowMall1Button.setIcon(yellowmall1);
+			
+		yellowMall2Button = new JButton();
+		yellowMall2Button.setBounds(100,10,100,100);
+		yellowMall2Button.setBorderPainted(false);
+		yellowMall2Button.setFocusPainted(false);
+		yellowMall2Button.setContentAreaFilled(false);		
+		yellowMall2Button.addActionListener(this);			
+		yellowMall2Button.setIcon(yellowmall2);
+				
+			
+		yellowMall3Button = new JButton();
+		yellowMall3Button.setBounds(200,10,100,100);
+		yellowMall3Button.setBorderPainted(false);
+		yellowMall3Button.setFocusPainted(false);
+		yellowMall3Button.setContentAreaFilled(false);		
+		yellowMall3Button.addActionListener(this);				
+		yellowMall3Button.setIcon(yellowmall3);
+				
+				
+		yellowMall4Button = new JButton();
+		yellowMall4Button.setBounds(300,10,100,100);
+		yellowMall4Button.setBorderPainted(false);
+		yellowMall4Button.setFocusPainted(false);
+		yellowMall4Button.setContentAreaFilled(false);		
+		yellowMall4Button.addActionListener(this);				
+		yellowMall4Button.setIcon(yellowmall4);
+				
+				
+		choose2Panel.add(yellowMall1Button);		
+		choose2Panel.add(yellowMall2Button);		
+		choose2Panel.add(yellowMall3Button);		
+		choose2Panel.add(yellowMall4Button);
+				
+			
+				
+		
+		
+		playerCheckImage = "greenCircle.png";
+		playerCheckPath = currentProjPath + "/" + Src + "/" + Package + "/" + playerCheckImage;
+		CheckIcon = new ImageIcon(playerCheckPath);
+		player1mallImage = "orangeCircle.png";
+		player1mallPath = currentProjPath + "/" + Src + "/" + Package + "/" + player1mallImage;
+		player1mallIcon = new ImageIcon(player1mallPath);
+		player2mallImage = "purpleCircle.png";
+		player2mallPath = currentProjPath + "/" + Src + "/" + Package + "/" + player2mallImage;
+		player2mallIcon = new ImageIcon(player2mallPath);
+		WhiteImage = "white.png";
+		WhitePath = currentProjPath + "/" + Src + "/" + Package + "/" + WhiteImage;
+		WhiteIcon = new ImageIcon(WhitePath);
+		frontYutImage = "yut1.png";
+		frontYutPath = currentProjPath + "/" + Src + "/" + Package + "/" + frontYutImage;
+		frontYutIcon = new ImageIcon(frontYutPath);
+		rearYutImage = "yut2.png";
+		rearYutPath = currentProjPath + "/" + Src + "/" + Package + "/" + rearYutImage;
+		rearYutIcon = new ImageIcon(rearYutPath);
+		backDoImage = "yut3.png";
+		backDoPath = currentProjPath + "/" + Src + "/" + Package + "/" + backDoImage;
+		backDoIcon = new ImageIcon(backDoPath);
+		
+		JPanel gamePanel = new JPanel();
+		gamePanel.setLayout(null);
+		gamePanel.setBounds(0,0,720,720);
+		add(gamePanel);
+		
+		//너비 280, 높이 720 , 그중에서 기본 720에서 더해서 시작하면 되겠다
+		//플레이어1,2 남은말과 현재 누구턴인지 표현하는 패널
+		PlayerPanel = new JPanel();
+		PlayerPanel.setLayout(null);
+		PlayerPanel.setBounds(720, 0, 280, 720);				
+		
+		//첫번째 플레이어쪽 표시 시작				
+		
+		JLabel IconCheck1 = new JLabel();
+		IconCheck1.setBounds(0, 0, 40, 90);
+		if(turn == true) {
+			IconCheck1.setIcon(CheckIcon);
+		}
+		else {
+			IconCheck1.setIcon(WhiteIcon);
+		}
+		
+		//이거 이미지로 입힐지 아니면 폰트 활용해서 할 지 한번 말해보기		
+		JLabel CheckLabel = new JLabel("Player 1");
+		CheckLabel.setBounds(40, 0, 240, 90);		
+		
+		PlayerPanel.add(IconCheck1);
+		PlayerPanel.add(CheckLabel);
+		
+		
+		
+		//첫번째 말쪽 시작		
+		JLabel []mallLabel = new JLabel[4];
+		
+		int interval = 0;		
+		for(i = 0; i< 4; i++) {
+			mallLabel[i] = new JLabel();
+			mallLabel[i].setBounds(0+interval, 90, 70, 90);
+			PlayerPanel.add(mallLabel[i]);
+			interval = interval + 70;
+		}	
+		
+		//이거 버튼 바뀌면 바뀌도록 해야 함 그대로 ActionListener쪽에 가져가서 써도 될 듯 
+//		for(i = 0; i< 4; i++) {
+//			if(i <= visualizeMall(player1)){
+//				mallLabel[i].setIcon(player1mallIcon);
+//			}else{
+//				mallLabel[i].setIcon(WhiteIcon);
+//			}			
+//		}		
+				
+		
+		//두번째 플레이어 이름 표시 시작		
+		
+		JLabel IconCheck2 = new JLabel();
+		IconCheck2.setBounds(0, 180, 40, 90);
+		
+		//앞의 코드와 중복되니 나중에 turn을 합칠때 구현을 잘해놓을것
+		if(turn == false) {
+			IconCheck2.setIcon(CheckIcon);
+		}
+		else {
+			IconCheck2.setIcon(WhiteIcon);
+		}
+		
+		JLabel CheckLabel2 = new JLabel("Player 2");
+		CheckLabel2.setBounds(40, 180, 240, 90);
+		
+		PlayerPanel.add(IconCheck2);
+		PlayerPanel.add(CheckLabel2);		
+		
+		//두번째 플레이어 말 표시 시작				
+		JLabel []mallLabel2 = new JLabel[4];
+		
+		int secondInterval = 0;
+		
+		for(i = 0; i< 4; i++) {
+			mallLabel2[i] = new JLabel();
+			mallLabel2[i].setBounds(0+secondInterval, 270, 70, 90);
+			PlayerPanel.add(mallLabel2[i]);
+			secondInterval = secondInterval + 70;
+		}	
+		
+		//이거 버튼 바뀌면 바뀌도록 해야 함 그대로 ActionListener쪽에 가져가서 써도 될 듯 
+	//	for(i = 0; i< 4; i++) {
+//			if(i <= visualizeMall(player2)){
+//				mallLabel2[i].setIcon(player2mallIcon);
+//			}else{
+//				mallLabel2[i].setIcon(WhiteIcon);
+//			}			
+//		}		
+				
+		
+		yutLabel1.setBounds(0, 360, 70, 270);
+		yutLabel2.setBounds(70, 360, 70, 270);
+		yutLabel3.setBounds(140, 360, 70, 270);
+		yutLabel4.setBounds(210, 360, 70, 270);
+		
+		yutLabel1.setIcon(frontYutIcon);
+		yutLabel2.setIcon(frontYutIcon);
+		yutLabel3.setIcon(frontYutIcon);
+		yutLabel4.setIcon(frontYutIcon);
+				
+		PlayerPanel.add(yutLabel1);				
+		PlayerPanel.add(yutLabel2);				
+		PlayerPanel.add(yutLabel3);				
+		PlayerPanel.add(yutLabel4);		
+				
+		
+		
+		
+		resLabel.setBounds(0, 630, 40, 60);
+		PlayerPanel.add(resLabel);
+		
+		clickButton = new JButton("click!");
+		clickButton.setBounds(40, 630, 240, 60);
+		clickButton.addActionListener(this);
+		PlayerPanel.add(clickButton);
+		
+		add(PlayerPanel);
+		
+		comp.add(choose2Panel);
+		comp.add(choose1Panel);
 		comp.add(pan);
-		comp.add(btnPanel);
+		comp.add(PlayerPanel);
 	}
 	
 
@@ -498,184 +903,204 @@ public class Pan extends JFrame implements ActionListener{
 		}catch (IOException E) {
 			E.printStackTrace();
 		}
-		
-		if(actionCommand.equals("click") && throwY==false) {//윷 던져서 위치 받아오기, throwY : throw 된 상태인지 확인(true이면 click으로 윷 던지기 불가능, 이동 후 false로 변경)
-			
-			if (player1 == true) { //플레이어 1 턴이면
-			//	p1rd = y.yutDun(); //p1rd : 윷 던져서 숫자 받아옴
-		//		System.out.println("윷 : " + p1rd);
-			//	if (p1rd == 4 || p1rd == 5) chance1 = true;
-				int testnum=0;
-				/*
-				 * if(testnum==4||testnum==5) { chance1=true; }
-				 */
+		/***********************************************************************************/
+		if(actionCommand.equals("click!") && throwY == false) {
+			System.out.println("click");
+			if(player1 == true) {
+				System.out.println("p1");
+				int testnum = 0;
 				
-				if(p1rd.size()>=1) {
-					if(chance1) {
-						testnum=y.yutDun();
-						p1rd.add(testnum);
-						System.out.println("p1윷: "+p1rd);
-						if(testnum<4)
-							chance1=false;
-					}
+				testnum = yutdun();
+				p1rd.add(testnum);
+				System.out.println("p1윷: " + p1rd);
+				
+				if (testnum == 4 || testnum == 5) {
+					throwY = false;
 				}
+				
 				else {
-					testnum=y.yutDun();
-					p1rd.add(testnum);
-					System.out.println("p1윷 : " + p1rd);
-				}
-				
-				if(testnum<=3) {
 					throwY = true;
-					chance1=false;
-				System.out.println("P1. Which mall : ");
-				mall = keyboard.nextInt(); // 말 선택
-				
-				if(mall == 1) {
-					System.out.println("p1이동하고 싶은 칸 수 위치"+p1rd);
-					num1=keyboard.nextInt();
-					num1=num1-1;
-					bfmv1[0] = P1[0].getLocation();
-					afmv1[0] = P1[0].preview(p1rd.get(num1));
-				}
-				else if(mall == 2) {
-					System.out.println("p1이동하고 싶은 칸 수 위치"+p1rd);
-					num1=keyboard.nextInt();
-					num1=num1-1;
-					bfmv1[1] = P1[1].getLocation();
-					afmv1[1] = P1[1].preview(p1rd.get(num1));
-				}
-				
-				if(mall == 1 && afmv1[0]>=0) { //getlocation : 이동 전 말의 위치 받아옴
-					ch1[afmv1[0]] = true;
-					ch1[bfmv1[0]] = false;
-					
-					
-					if(afmv1[0]==0 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
-						image[afmv1[0]].setIcon(bgCh);
+					choose1Panel.setVisible(true);
+					for(int i=0; i<71; i++) {
+						btn[i].setEnabled(false);
 					}
-					else image[afmv1[0]].setIcon(btnch);
-					//위 코드는 이동 가능한 칸의 색 변화를 시행함
 				}
-				
-				if(mall == 2 && afmv1[1]>=0) { //getlocation : 이동 전 말의 위치 받아옴
-					ch1[afmv1[1]] = true;
-					ch1[bfmv1[1]] = false;
-					
-					
-					if(afmv1[1]==0 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
-						image[afmv1[1]].setIcon(bgCh);
-					}
-					else image[afmv1[1]].setIcon(btnch);
-					//위 코드는 이동 가능한 칸의 색 변화를 시행함
-				}
-				
-				else if((mall == 1 && afmv1[0]<0) || (mall == 2 && afmv1[1]<0)){
-					throwY = false;
-					JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
-					p1rd.remove(num1);
-					player1 = false;
-					player2 = true;
-					
-				}
-			}
 			}
 			
-			else if (player2 == true) { //플레이어 2 턴이면
-				int testnum2=0;				
-				/*
-				 * if(testnum2==4 || testnum2==5) { chance2 = true; }
-				 */
+			if(player2 == true) {
+				System.out.println("p2");
+				int testnum = 0;
 				
-				if(p2rd.size()>=1) {
-					if(chance2) {
-						testnum2=y.yutDun();
-						p2rd.add(testnum2);
-						System.out.println("p2윷 : " + p2rd);
-						if(testnum2<4)
-							chance2=false;
-					}
-				}
-				else {
-					testnum2=y.yutDun();
-					p2rd.add(testnum2);
-					System.out.println("p2윷 : " + p2rd);
-				}
+				testnum = yutdun();
+				p2rd.add(testnum);
+				System.out.println("p2윷: " + p2rd);
 				
-				if(testnum2<=3) {
-				//		p2rd = y.yutDun(); //p1rd : 윷 던져서 숫자 받아옴
-				throwY = true;
-				chance2=false;
-		//		System.out.println("윷 : " + p2rd);
-		//		if (p2rd == 4 || p2rd == 5) chance2 = true;
-				
-				System.out.println("P2. Which mall : ");
-				mall = keyboard.nextInt(); // 말 선택
-				
-				if(mall == 1) {
-					System.out.println("p2이동하고 싶은 칸 수 위치"+p2rd);
-					num2=keyboard.nextInt();
-					num2=num2-1;
-					
-					bfmv2[0] = P2[0].getLocation();
-					afmv2[0] = P2[0].preview(p2rd.get(num2));
-				}
-				else if(mall == 2) {
-					System.out.println("p2이동하고 싶은 칸 수 위치"+p2rd);
-					num2=keyboard.nextInt();
-					num2=num2-1;
-					bfmv2[1] = P2[1].getLocation();
-					afmv2[1] = P2[1].preview(p2rd.get(num2));
-				}
-				
-				if(mall == 1 && afmv2[0]>=0) { //getlocation : 이동 전 말의 위치 받아옴
-					ch2[afmv2[0]] = true;
-					ch2[bfmv2[0]] = false;
-					
-					
-					if(afmv2[0]==0 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
-						image[afmv2[0]].setIcon(bgCh);
-					}
-					else image[afmv2[0]].setIcon(btnch);
-					//위 코드는 이동 가능한 칸의 색 변화를 시행함
-				}
-				
-				if(mall == 2 && afmv2[1]>=0) { //getlocation : 이동 전 말의 위치 받아옴
-					ch2[afmv2[1]] = true;
-					ch2[bfmv2[1]] = false;
-					
-					
-					if(afmv2[1]==0 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
-						image[afmv2[1]].setIcon(bgCh);
-					}
-					else image[afmv2[1]].setIcon(btnch);
-					//위 코드는 이동 가능한 칸의 색 변화를 시행함
-				}
-				
-				else if((mall == 1 && afmv2[0]<0) || (mall == 2 && afmv2[1]<0)){
+				if (testnum == 4 || testnum == 5) {
 					throwY = false;
-					JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
-					p2rd.remove(num2);
-					player1 = true;
-					player2 = false;
-					
 				}
+				
+				else {
+					throwY = true;
+					choose2Panel.setVisible(true);
+					for(int i=0; i<71; i++) {
+						btn[i].setEnabled(false);
+					}
+				} 
 			}
+		}
+		/***********************************************************************************/
 		
+		if(e.getSource() == redmall1Button && throwY == true) { //p1의 1번이면, 이동 가능한 칸의 색 바꾸기
+			choose1Panel.setVisible(false);
+			for(int i=0; i<71; i++) {
+				btn[i].setEnabled(true);
 			}
+			mall = 1;
+			System.out.println("p1이동하고 싶은 칸 수 위치"+p1rd);
+			num1=keyboard.nextInt();
+			num1=num1-1;
+			bfmv1[0] = P1[0].getLocation();
+			afmv1[0] = P1[0].preview(p1rd.get(num1));
+			
+			if(afmv1[0]>=0) { //getlocation : 이동 전 말의 위치 받아옴
+				ch1[afmv1[0]] = true;
+				ch1[bfmv1[0]] = false;
+				
+				if(afmv1[0]==0 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
+					image[afmv1[0]].setIcon(bgCh);
+				}
+				else image[afmv1[0]].setIcon(btnch);
+				//위 코드는 이동 가능한 칸의 색 변화를 시행함
 			}
+			
+			else if(afmv1[0]<0) {
+				throwY = false;
+				JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
+				p1rd.remove(num1);
+				player1 = false;
+				player2 = true;	
+			}		//위 코드는 이동 가능한 칸의 색 변화를 시행함
+		}
 		
+		/***************/
+		
+		if(e.getSource() == redmall2Button && throwY == true) { //p1의 2번이면
+			//패널 setvisible(false)
+			choose1Panel.setVisible(false);
+			for(int i=0; i<71; i++) {
+				btn[i].setEnabled(true);
+			}
+			//버튼 전부 enable
+			
+			mall = 2;
+			System.out.println("p1이동하고 싶은 칸 수 위치"+p1rd);
+			num1=keyboard.nextInt();
+			num1=num1-1;
+			bfmv1[1] = P1[1].getLocation();
+			afmv1[1] = P1[1].preview(p1rd.get(num1));
+			
+			if(afmv1[1]>=0) { //getlocation : 이동 전 말의 위치 받아옴
+				ch1[afmv1[1]] = true;
+				ch1[bfmv1[1]] = false;
+				
+				if(afmv1[1]==0 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
+					image[afmv1[1]].setIcon(bgCh);
+				}
+				else image[afmv1[1]].setIcon(btnch);
+				//위 코드는 이동 가능한 칸의 색 변화를 시행함
+			}
+			
+			else if(afmv1[1]<0) {
+				throwY = false;
+				JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
+				p1rd.remove(num1);
+				player1 = true;
+				player2 = false;	
+			}		//위 코드는 이동 가능한 칸의 색 변화를 시행함
+		}
+		
+		if(e.getSource() == yellowMall1Button && throwY == true) { //p1의 1번이면, 이동 가능한 칸의 색 바꾸기
+			choose2Panel.setVisible(false);
+			for(int i=0; i<71; i++) {
+				btn[i].setEnabled(true);
+			}
+			mall = 1;
+			System.out.println("p2이동하고 싶은 칸 수 위치"+p2rd);
+			num2=keyboard.nextInt();
+			num2=num2-1;
+			bfmv2[0] = P2[0].getLocation();
+			afmv2[0] = P2[0].preview(p2rd.get(num2));
+			
+			if(afmv2[0]>=0) { //getlocation : 이동 전 말의 위치 받아옴
+				ch2[afmv2[0]] = true;
+				ch2[bfmv2[0]] = false;
+				
+				if(afmv2[0]==0 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
+					image[afmv2[0]].setIcon(bgCh);
+				}
+				else image[afmv2[0]].setIcon(btnch);
+				//위 코드는 이동 가능한 칸의 색 변화를 시행함
+			}
+			
+			else if(afmv2[0]<0) {
+				throwY = false;
+				JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
+				p2rd.remove(num2);
+				player2 = false;
+				player1 = true;	
+			}		//위 코드는 이동 가능한 칸의 색 변화를 시행함
+		}
+		
+		/***************/
+		
+		if(e.getSource() == yellowMall2Button && throwY == true) { //p1의 2번이면
+			//패널 setvisible(false)
+			choose2Panel.setVisible(false);
+			for(int i=0; i<71; i++) {
+				btn[i].setEnabled(true);
+			}
+			//버튼 전부 enable
+			
+			mall = 2;
+			System.out.println("p2이동하고 싶은 칸 수 위치"+p2rd);
+			num2=keyboard.nextInt();
+			num2=num2-1;
+			bfmv2[1] = P2[1].getLocation();
+			afmv2[1] = P2[1].preview(p2rd.get(num1));
+			
+			if(afmv2[1]>=0) { //getlocation : 이동 전 말의 위치 받아옴
+				ch2[afmv2[1]] = true;
+				ch2[bfmv2[1]] = false;
+				
+				if(afmv2[1]==0 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
+					image[afmv2[1]].setIcon(bgCh);
+				}
+				else image[afmv2[1]].setIcon(btnch);
+				//위 코드는 이동 가능한 칸의 색 변화를 시행함
+			}
+			
+			else if(afmv2[1]<0) {
+				throwY = false;
+				JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
+				p2rd.remove(num2);
+				player2 = false;
+				player1 = true;	
+			}		//위 코드는 이동 가능한 칸의 색 변화를 시행함
+		}
+		
+		
+		/***********************************************************************************/
 		
 		for(int i = 0; i<71; i++) { //이동
 			if(player1 == true) {//플레이어 1의 차례
 				if(e.getSource() == btn[i] && ch1[i] == true && throwY == true) { //버튼(칸)이 눌렸음 && 칸에 말 존재 && 윷 던져진 상태
-					throwY = false; //다음 턴에서 윷을 던질 수 있도록 함
+					 //다음 턴에서 윷을 던질 수 있도록 함
 					
 					if(mall==1 && bfmv1[0]==0) {
 						if(afmv1[0]==0 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
-							image[afmv1[0]].setIcon(bgEx);
+							image[afmv1[0]].setIcon(R1bgexist);
 						}
-						else image[afmv1[0]].setIcon(exist);
+						else image[afmv1[0]].setIcon(R1exist);
 						//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 						
 						P1[0].setLocation(p1rd.get(num1)); //1번 말 이동한 위치 저장
@@ -684,9 +1109,9 @@ public class Pan extends JFrame implements ActionListener{
 					
 					else if(mall==2 && bfmv1[0]==0) {
 						if(afmv1[1]==0 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
-							image[afmv1[1]].setIcon(bgEx);
+							image[afmv1[1]].setIcon(R2bgexist);
 						}
-						else image[afmv1[1]].setIcon(exist);
+						else image[afmv1[1]].setIcon(R2exist);
 						
 						P1[1].setLocation(p1rd.get(num1));
 						System.out.println("location : " + P1[1].getLocation());
@@ -702,9 +1127,13 @@ public class Pan extends JFrame implements ActionListener{
 						System.out.println("i ; " + i + "  P1[j].getLocation() + p1rd ; " + loc);
 						if(i == loc) {
 							if(loc==0 || loc==60 || loc==40|| loc==15|| loc==43) {
-								image[loc].setIcon(bgEx);
+								if(j==0) image[loc].setIcon(R1bgexist);
+								else if(j==1) image[loc].setIcon(R2bgexist);
 							}
-							else image[loc].setIcon(exist);
+							else {
+								if(j==0) image[loc].setIcon(R1exist);
+								else if(j==1) image[loc].setIcon(R2bgexist);
+							}
 							//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 							
 							P1[j].setLocation(p1rd.get(num1)); //1번 말 이동한 위치 저장
@@ -731,7 +1160,7 @@ public class Pan extends JFrame implements ActionListener{
 							}
 							else image[j].setIcon(btn2);
 						}
-						if(ch1[j] == true && ch2[j] == false) {
+						/*if(ch1[j] == true && ch2[j] == false) {
 							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(bgEx);
 							}
@@ -742,36 +1171,48 @@ public class Pan extends JFrame implements ActionListener{
 								image[j].setIcon(bgEx2);
 							}
 							else image[j].setIcon(exist2);
-						}
+						}*/
 					}
 					p1rd.remove(num1);
 					System.out.println(p1rd.size());
-					if(0!=p1rd.size()) 
-						chance1=true;
+					System.out.println(p1rd.size());
+					if(0!=p1rd.size()) {
+						//p1패널 setvisible
+						choose1Panel.setVisible(true);
+						for(int k=0; k<71; k++) {
+							btn[k].setEnabled(false);
+						}
+						//continue;
+					}
+						//chance1=true;
 				//	else
 				//		chance1=false;
-					if(chance1) {
-						player1 = true;
-						player2 = false;
-						chance1 = false;
-					}
-					else {
-						player1 = false;
-						player2 = true;
-						chance1=true;
+					else{
+						throwY = false;
+					
+						if(chance1) {
+							player1 = true;
+							player2 = false;
+							chance1 = false;
+						}
+						else {
+							player1 = false;
+							player2 = true;
+							chance1 = true;
+						}
 					}
 				}
 			}
 				
 			else if(player2 == true) {//플레이어 1의 차례
 				if(e.getSource() == btn[i] && ch2[i] == true && throwY == true) { //버튼(칸)이 눌렸음 && 칸에 말 존재 && 윷 던져진 상태
-					throwY = false; //다음 턴에서 윷을 던질 수 있도록 함
+					//throwY = false; //다음 턴에서 윷을 던질 수 있도록 함
 					
 					if(mall==1 && bfmv2[0]==0) {
 						if(afmv2[0]==0 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
-							image[afmv2[0]].setIcon(bgEx2);
+							image[afmv2[0]].setIcon(Y1bgexist);
 						}
-						else image[afmv2[0]].setIcon(exist2);
+						else image[afmv2[0]].setIcon(Y1exist);
 						//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 						
 						P2[0].setLocation(p2rd.get(num2)); //1번 말 이동한 위치 저장
@@ -779,9 +1220,9 @@ public class Pan extends JFrame implements ActionListener{
 					}
 					else if(mall==2 && bfmv2[1]==0) {
 						if(afmv2[1]==0 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
-							image[afmv2[1]].setIcon(bgEx2);
+							image[afmv2[1]].setIcon(Y2bgexist);
 						}
-						else image[afmv2[1]].setIcon(exist2);
+						else image[afmv2[1]].setIcon(Y2exist);
 						
 						P2[1].setLocation(p2rd.get(num2));
 						System.out.println("location : " + P2[1].getLocation());
@@ -797,9 +1238,15 @@ public class Pan extends JFrame implements ActionListener{
 						System.out.println("i ; " + i + "  P2[j].getLocation() + p2rd ; " + loc);
 						if(i == loc) {
 							if(loc==0 || loc==60 || loc==40|| loc==15|| loc==43) {
-								image[loc].setIcon(bgEx);
+								if(j==0) {
+									image[loc].setIcon(Y1bgexist);
+								}
+								else if(j==1) image[loc].setIcon(Y2bgexist);
 							}
-							else image[loc].setIcon(exist);
+							else{
+								if(j==0) image[loc].setIcon(Y1exist);
+								else if(j==1) image[loc].setIcon(Y2exist);
+							}
 							//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 							
 							P2[j].setLocation(p2rd.get(num2)); //1번 말 이동한 위치 저장
@@ -813,7 +1260,7 @@ public class Pan extends JFrame implements ActionListener{
 								P1[j].goStart();
 							}
 						}
-						p2rd.remove(num2);
+						//p2rd.remove(num2);
 						JOptionPane.showMessageDialog(null, "You catch the Player1's mal", "Catch", JOptionPane.INFORMATION_MESSAGE);
 						ch1[i]=false;
 						chance2 =true;
@@ -826,7 +1273,7 @@ public class Pan extends JFrame implements ActionListener{
 							}
 							else image[j].setIcon(btn2);
 						}
-						if(ch1[j] == true && ch2[j] == false) {
+						/*if(ch1[j] == true && ch2[j] == false) {
 							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(bgEx);
 							}
@@ -837,27 +1284,280 @@ public class Pan extends JFrame implements ActionListener{
 								image[j].setIcon(bgEx2);
 							}
 							else image[j].setIcon(exist2);
-						}
+						}*/
 					}
 					p2rd.remove(num2);
 					System.out.println(p2rd.size());
-					if(0!=p2rd.size()) 
-						chance2=true;
+					if(0!=p2rd.size()) {
+						// 패널 set visible
+						//continue;
+						choose2Panel.setVisible(true);
+						for(int k=0; k<71; k++) {
+							btn[k].setEnabled(false);
+						}
+					}
+					else{
+						throwY = false;
+					
+						//chance2=true;
 				//	else
 				//		chance2=false;
-					if(chance2) {
-						player2 = true;
-						player1 = false;
-						chance2 = false;
-					}
-					else {
-						player2 = false;
-						player1 = true;
-						chance2=true;
+						if(chance2) {
+							player2 = true;
+							player1 = false;
+							chance2 = false;
+						}
+						else {
+							player2 = false;
+							player1 = true;
+							chance2 = true;
+						}
 					}
 				}
 			}
 		}
-	}	
+}
+					
+	public int yutdun() {
+		int res = 0;
+		//먼저 새창 띄워서 윷던지는 움짤 보여준다.
+		//그 후 윷던 실행
+		int temp;
+		
+		temp = yourYut.yutDun();			
+		for(int i = 0; i< 3; i++) {
+			res += yourYut.getYut(i);
+		}
+		if(res == 3 && yourYut.getYut(3) == 0) {
+			resText = "걸";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);					
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}
+		else if(res == 3 && yourYut.getYut(3) == 1) {
+			resText = "윷";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {					
+				yutLabel4.setIcon(backDoIcon);
+			}
+		}
+		else if(res == 2 && yourYut.getYut(3) == 1) {
+			resText = "걸";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}
+		else if(res == 1 && yourYut.getYut(3) == 1) {
+			resText = "개";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}
+		else if(res == 0 && yourYut.getYut(3) == 1) {
+			resText = "빽도";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}			
+		else if(res == 2 && yourYut.getYut(3) == 0) {
+			resText = "개";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}
+		else if(res == 1 && yourYut.getYut(3) == 0) {
+			resText = "도";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}
+		else if(res == 0 && yourYut.getYut(3) == 0) {
+			resText = "모";
+			resLabel.setText(resText);
+			if(yourYut.getYut(0) == 0) {			
+				yutLabel1.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel1.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(1) == 0) {			
+				yutLabel2.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel2.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(2) == 0) {			
+				yutLabel3.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel3.setIcon(rearYutIcon);				
+			}
+			if(yourYut.getYut(3) == 0) {			
+				yutLabel4.setIcon(frontYutIcon);
+			}
+			else {
+				yutLabel4.setIcon(backDoIcon);				
+			}
+		}
+		else {
+			System.out.print("not correct yutDun");
+		}
+		revalidate();
+		repaint();
+		return temp;
+	}
 }
 
