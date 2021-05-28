@@ -1,6 +1,6 @@
 package teamproject;
 /***1. 판 num 바뀌는 부분에서 백도 수정 필요
- * 2. 윷, 모 나온 후 상대 말 잡았을 때 한번 더 안던지는 거 수정 필요
+ * 2. 윷, 모 나온 후 상대 말 잡았을 때 한번 더 안던지는 거 수정 필요(모로 잡았을 때도 던지게)
  * 3. 윷, 모로 상대 말 잡았을 때 차례가 상대로 넘어가는 거 수정 필요(해결)
  * 4. player1 윷, 모 나왔을 때 한번 더 안던지는 거 수정 필요(해결)
  * */
@@ -506,9 +506,9 @@ public class Pan extends JFrame implements ActionListener{
 		//		System.out.println("윷 : " + p1rd);
 			//	if (p1rd == 4 || p1rd == 5) chance1 = true;
 				int testnum=0;
-				if(testnum==4||testnum==5) {
-					chance1=true;
-				}
+				/*
+				 * if(testnum==4||testnum==5) { chance1=true; }
+				 */
 				
 				if(p1rd.size()>=1) {
 					if(chance1) {
@@ -583,9 +583,9 @@ public class Pan extends JFrame implements ActionListener{
 			
 			else if (player2 == true) { //플레이어 2 턴이면
 				int testnum2=0;				
-				if(testnum2==4 || testnum2==5) {
-					chance2 = true;
-				}
+				/*
+				 * if(testnum2==4 || testnum2==5) { chance2 = true; }
+				 */
 				
 				if(p2rd.size()>=1) {
 					if(chance2) {
