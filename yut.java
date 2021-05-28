@@ -2,9 +2,10 @@ package teamproject;
 
 import java.util.Random;
 public class yut {
+	int[] yut=new int[4];
 	public int yutDun() {
 		Random rand = new Random();
-		  int[] yut=new int[4];
+		  
 		  int testNum=(int)(rand.nextGaussian()%2);
 		  int temp=0;
 			/*
@@ -31,11 +32,13 @@ public class yut {
 			  }
 			  }
 		  }
-//		  temp=rand.nextInt(6);
+		
 		//  System.out.print(temp+" ");
-
-		  
 		  return temp;
+	}
+	
+	public int getYut(int i) {
+		return yut[i];
 	}
 }
 

@@ -1,5 +1,9 @@
 
 
+
+package teamproject;
+
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -19,7 +23,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import java.util.Random;
 
-public class rockScissorPaper extends JFrame implements gameChanger{
+
+public class rockScissorPaper extends JFrame implements ActionListener{
+
 	private static int scissor = 3;
 	private static int rock = 2;
 	private static int paper = 1;
@@ -27,7 +33,10 @@ public class rockScissorPaper extends JFrame implements gameChanger{
 	public static final int WIDTH = 800;
 	public static final int HEIGHT =600;
 	
+
 	private int gameChanger = 0;
+
+
 	private String text = "";
 	private int numA = 0;
 	private int numB = 0;
@@ -59,7 +68,7 @@ public class rockScissorPaper extends JFrame implements gameChanger{
 	
 	public static int cmpGame(int numA, int numB){
 		if(numA == numB){ 
-			// ¹«½ÂºÎ¶ó´Â ¶æ 
+			// ë¬´ìŠ¹ë¶€ë¼ëŠ” ëœ» 
 			System.out.println("Tie");
 			return 0;
 		}
@@ -83,10 +92,10 @@ public class rockScissorPaper extends JFrame implements gameChanger{
 		}		
 		else {
 			System.out.println("Not correct Game");
-			return -2; // ¸¸¾à °¡À§¹ÙÀ§º¸°¡ ÀÌ·ç¾î ÁöÁö ¾Ê¾ÒÀ» °æ¿ì ³ª¿À´Â °Í
+			return -2; // ë§Œì•½ ê°€ìœ„ë°”ìœ„ë³´ê°€ ì´ë£¨ì–´ ì§€ì§€ ì•Šì•˜ì„ ê²½ìš° ë‚˜ì˜¤ëŠ” ê²ƒ
 		}
 	}
-	//¸¸¾à ½ÇÇà¼Óµµ ´À·ÁÁú½Ã ÀÌ ¸Ş¼Òµå Áö¿ì°í »õ·Î¿î ¾ÕÀÇ °Í¿¡¼­ ÀÌ ¸Ş¼Òµå°¡ ÇàÇÏ´Â °ÍÀ» ÇØµµ ¹«¹æÇÏ´Ù 
+	//ë§Œì•½ ì‹¤í–‰ì†ë„ ëŠë ¤ì§ˆì‹œ ì´ ë©”ì†Œë“œ ì§€ìš°ê³  ìƒˆë¡œìš´ ì•ì˜ ê²ƒì—ì„œ ì´ ë©”ì†Œë“œê°€ í–‰í•˜ëŠ” ê²ƒì„ í•´ë„ ë¬´ë°©í•˜ë‹¤ 
 	public static int cmpWhoWin(int personA, int personB, int win) {
 		if(win == 1) { // if personA win return this
 			System.out.println("Player 1 Win");
@@ -160,7 +169,11 @@ public class rockScissorPaper extends JFrame implements gameChanger{
 			else{
 				System.out.println("IconError");
 			}
+
 						
+
+			//ì´ë ‡ê²Œ í•˜ë©´ ì•ˆë ë ¤ë‚˜?			
+
 			gamePanel.add(gameLabel2);
 			if(numB == scissor) {
 				gameLabel2.setIcon(scissorIcon);
@@ -180,21 +193,29 @@ public class rockScissorPaper extends JFrame implements gameChanger{
 			}
 			else if(res == numA){
 				text = "You Win";
+
 				setGameChanger(1);
+
 				resArea.setText(text);
 			}
 			else {
 				text = "You Lose";
+
 				setGameChanger(-1);
+
 				resArea.setText(text);
 			}
 		}
 	}	
 	
+
 	public void setGameChanger(int i){
 		gameChanger = i;
 	}		
 	public int getGameChanger(){
 		return gameChanger;
 	}
+
+	
+
 }
