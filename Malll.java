@@ -61,7 +61,10 @@ public class Malll {
 		else if(location==46) {
 			System.out.println("---");
 			location=0;
-		}
+		}else if(location == 39) {
+			System.out.println("---");
+			location=4;
+		}//else if(location == )
 		/*else if(num==0){
 			//location+=a.yutDun();
 			//저런경우 없을때 던지기
