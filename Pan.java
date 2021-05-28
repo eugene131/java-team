@@ -881,7 +881,7 @@ public class Pan extends JFrame implements ActionListener{
 						//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 						
 						P1[0].setLocation(p1rd.get(num1)); //1번 말 이동한 위치 저장
-						System.out.println("location : " + P1[0].getLocation());
+						System.out.println("P1[0] location : " + P1[0].getLocation());
 					}
 					
 					else if(mall==2 && bfmv1[0]==0) {
@@ -891,7 +891,7 @@ public class Pan extends JFrame implements ActionListener{
 						else image[afmv1[1]].setIcon(exist);
 						
 						P1[1].setLocation(p1rd.get(num1));
-						System.out.println("location : " + P1[1].getLocation());
+						System.out.println("P1[1] location : " + P1[1].getLocation());
 					}
 					else for(int j = 0; j<2; j++) { // 업기
 						loc = P1[j].getLocation() + p1rd.get(num1);
@@ -911,6 +911,8 @@ public class Pan extends JFrame implements ActionListener{
 							loc=65;
 					//		location=location+a.yutDun();
 							//두번 쨰 꺽는 구간 
+						}else if(loc==0) {
+							loc=46;
 						}
 						
 						else if(loc == 63) {
@@ -941,7 +943,7 @@ public class Pan extends JFrame implements ActionListener{
 							loc=9;
 						}
 						
-						System.out.println("i ; " + i + "  P1[j].getLocation() + p1rd ; " + loc);
+						System.out.println("i : " + i + "P1["+j+"]위치 "+ P1[j].getLocation() +" "+ p1rd+"loc " + loc);
 						if(i == loc) {
 							if(loc==46 || loc==60 || loc==40|| loc==15|| loc==43) {
 								image[loc].setIcon(bgEx);
@@ -950,7 +952,7 @@ public class Pan extends JFrame implements ActionListener{
 							//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 							
 							P1[j].setLocation(p1rd.get(num1)); //1번 말 이동한 위치 저장
-							System.out.println("location : " + P1[j].getLocation());
+							System.out.println("p1["+j+"] location : " + P1[j].getLocation());
 						}
 					}
 					
@@ -1018,7 +1020,7 @@ public class Pan extends JFrame implements ActionListener{
 						//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 						
 						P2[0].setLocation(p2rd.get(num2)); //1번 말 이동한 위치 저장
-						System.out.println("location : " + P2[0].getLocation());
+						System.out.println("P2[0] location : " + P2[0].getLocation());
 					}
 					else if(mall==2 && bfmv2[1]==0) {
 						if(afmv2[1]==46 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
@@ -1027,7 +1029,7 @@ public class Pan extends JFrame implements ActionListener{
 						else image[afmv2[1]].setIcon(exist2);
 						
 						P2[1].setLocation(p2rd.get(num2));
-						System.out.println("location : " + P2[1].getLocation());
+						System.out.println("P2[1] location : " + P2[1].getLocation());
 					}
 					else for(int j = 0; j<2; j++) { // 업기
 						loc = P2[j].getLocation() + p2rd.get(num2);
@@ -1066,6 +1068,8 @@ public class Pan extends JFrame implements ActionListener{
 						else if(loc==59) {
 							System.out.println("---");
 							loc = 4;//모 자리에서 백도
+						}else if(loc==0) {
+							loc=46;
 						}
 						else if(loc==20) {
 							System.out.println("---");
@@ -1078,7 +1082,7 @@ public class Pan extends JFrame implements ActionListener{
 							System.out.println("---");
 							loc=9;
 						}
-						System.out.println("i ; " + i + "  P2[j].getLocation() + p2rd ; " + loc);
+						System.out.println("i ; " + i + "P2[j] 위치 "+  P2[j].getLocation() + "loc값: "  + loc);
 						if(i == loc) {
 							if(loc==46 || loc==60 || loc==40|| loc==15|| loc==43) {
 								image[loc].setIcon(bgEx);
@@ -1087,7 +1091,7 @@ public class Pan extends JFrame implements ActionListener{
 							//이동 후, 1번 말이 위치한 곳의 아이콘을 바꾸기 위함
 							
 							P2[j].setLocation(p2rd.get(num2)); //1번 말 이동한 위치 저장
-							System.out.println("location : " + P2[j].getLocation());
+							System.out.println("P2["+j+"] location : " + P2[j].getLocation());
 						}
 					}
 					
