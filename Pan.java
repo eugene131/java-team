@@ -1,6 +1,6 @@
 package teamproject;
-/***1. 판 num 바뀌는 부분에서 백도 수정 필요
- * 2. 윷, 모 나온 후 상대 말 잡았을 때 한번 더 안던지는 거 수정 필요
+/***1. 판 num 바뀌는 부분에서 백도 수정 필요(해결)
+ * 2. 윷, 모 나온 후 상대 말 잡았을 때 한번 더 안던지는 거 수정 필요(윷이나 모로 잡아도 한번 더 던지도록 수정)
  * 3. 윷, 모로 상대 말 잡았을 때 차례가 상대로 넘어가는 거 수정 필요(해결)
  * 4. player1 윷, 모 나왔을 때 한번 더 안던지는 거 수정 필요(해결)
  * */
@@ -104,6 +104,11 @@ public class Pan extends JFrame implements ActionListener{
 	boolean chance1 = true;
 	boolean chance2 = true;
 	
+	public int[] checkNum1=new int[2];
+	public int[] checkNum2=new int[2];
+	public int[] midcheck1=new int[2];
+	public int[] midcheck2=new int[2];
+	
 	public int p1cnt = 0;
 	public int p2cnt = 0;
 	public int num1;
@@ -195,15 +200,15 @@ public class Pan extends JFrame implements ActionListener{
 			btn[i]=new JButton(trbtn);
 		}
 		
-		image[0] = new JLabel(btn1);
-		image[0].setBounds(535, 545, 100, 120);
+		image[46] = new JLabel(btn1);
+		image[46].setBounds(535, 545, 100, 120);
 			
-		btn[0] = new JButton(trbtn);
-		btn[0].setBounds(535, 545, 100, 120);
-		btn[0].setBorderPainted(false);
-		btn[0].setFocusPainted(false);
-		btn[0].setContentAreaFilled(false);
-		btn[0].addActionListener(this);
+		btn[46] = new JButton(trbtn);
+		btn[46].setBounds(535, 545, 100, 120);
+		btn[46].setBorderPainted(false);
+		btn[46].setFocusPainted(false);
+		btn[46].setContentAreaFilled(false);
+		btn[46].addActionListener(this);
 		
 		image[1] = new JLabel(btn2);
 		image[1].setBounds(535, 545-125, 100, 120);
@@ -703,9 +708,9 @@ public class Pan extends JFrame implements ActionListener{
 		//		System.out.println("윷 : " + p1rd);
 			//	if (p1rd == 4 || p1rd == 5) chance1 = true;
 				int testnum=0;
-				if(testnum==4||testnum==5) {
-					chance1=true;
-				}
+				/*
+				 * if(testnum==4||testnum==5) { chance1=true; }
+				 */
 				
 				if(p1rd.size()>=1) {
 					if(chance1) {
@@ -748,7 +753,7 @@ public class Pan extends JFrame implements ActionListener{
 					ch1[bfmv1[0]] = false;
 					
 					
-					if(afmv1[0]==0 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
+					if(afmv1[0]==46 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
 						image[afmv1[0]].setIcon(bgCh);
 					}
 					else image[afmv1[0]].setIcon(btnch);
@@ -760,7 +765,7 @@ public class Pan extends JFrame implements ActionListener{
 					ch1[bfmv1[1]] = false;
 					
 					
-					if(afmv1[1]==0 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
+					if(afmv1[1]==46 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
 						image[afmv1[1]].setIcon(bgCh);
 					}
 					else image[afmv1[1]].setIcon(btnch);
@@ -780,9 +785,9 @@ public class Pan extends JFrame implements ActionListener{
 			
 			else if (player2 == true) { //플레이어 2 턴이면
 				int testnum2=0;				
-				if(testnum2==4 || testnum2==5) {
-					chance2 = true;
-				}
+				/*
+				 * if(testnum2==4 || testnum2==5) { chance2 = true; }
+				 */
 				
 				if(p2rd.size()>=1) {
 					if(chance2) {
@@ -830,7 +835,7 @@ public class Pan extends JFrame implements ActionListener{
 					ch2[bfmv2[0]] = false;
 					
 					
-					if(afmv2[0]==0 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
+					if(afmv2[0]==46 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
 						image[afmv2[0]].setIcon(bgCh);
 					}
 					else image[afmv2[0]].setIcon(btnch);
@@ -842,7 +847,7 @@ public class Pan extends JFrame implements ActionListener{
 					ch2[bfmv2[1]] = false;
 					
 					
-					if(afmv2[1]==0 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
+					if(afmv2[1]==46 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
 						image[afmv2[1]].setIcon(bgCh);
 					}
 					else image[afmv2[1]].setIcon(btnch);
@@ -869,7 +874,7 @@ public class Pan extends JFrame implements ActionListener{
 					throwY = false; //다음 턴에서 윷을 던질 수 있도록 함
 					
 					if(mall==1 && bfmv1[0]==0) {
-						if(afmv1[0]==0 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
+						if(afmv1[0]==46 || afmv1[0]==60 || afmv1[0]==40|| afmv1[0]==15|| afmv1[0]==43) {
 							image[afmv1[0]].setIcon(bgEx);
 						}
 						else image[afmv1[0]].setIcon(exist);
@@ -880,7 +885,7 @@ public class Pan extends JFrame implements ActionListener{
 					}
 					
 					else if(mall==2 && bfmv1[0]==0) {
-						if(afmv1[1]==0 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
+						if(afmv1[1]==46 || afmv1[1]==60 || afmv1[1]==40|| afmv1[1]==15|| afmv1[1]==43) {
 							image[afmv1[1]].setIcon(bgEx);
 						}
 						else image[afmv1[1]].setIcon(exist);
@@ -891,14 +896,54 @@ public class Pan extends JFrame implements ActionListener{
 					else for(int j = 0; j<2; j++) { // 업기
 						loc = P1[j].getLocation() + p1rd.get(num1);
 						
-						if(loc==5) loc = 60;
-						else if(loc==10) loc = 40;
-						else if(loc==63) loc = 43;
-						else if(loc>=66) loc -= 51;
+						if(loc == 5)	{
+							System.out.println("---");
+							loc=60;
+							//모 나왔을때 옆으로 가는거
+						}
+						else if(loc==10) {
+							System.out.println("---");
+							loc=40;
+					//		location=location+a.yutDun();
+							//두번 쨰 꺽는 구간 
+						}else if(loc==14&&checkNum1[j]==1) {
+							System.out.println("---");
+							loc=65;
+					//		location=location+a.yutDun();
+							//두번 쨰 꺽는 구간 
+						}
+						
+						else if(loc == 63) {
+							System.out.println("---");
+							loc-=20;
+						//	location+=a.yutDun();
+						}	//중앙에 도착했을 때 꺽기
+						else if(loc>65) {
+							System.out.println("---");
+							loc-=51;
+							checkNum1[j]=1;//온 방향대로 백도
+						}else if (loc==42&&midcheck1[j]==1) {
+							loc=62;
+						}
+						else if(loc==59) {
+							System.out.println("---");
+							loc = 4;//모 자리에서 백도
+						}
+						else if(loc==20) {
+							System.out.println("---");
+							loc=46;//마지막은 46으로 통일
+							checkNum1[j]=1;
+						}else if(loc==45&&checkNum1[j]==1) {
+							System.out.println("---");
+							loc=19;// 온 방향대로 백도
+						}else if(loc == 39) {
+							System.out.println("---");
+							loc=9;
+						}
 						
 						System.out.println("i ; " + i + "  P1[j].getLocation() + p1rd ; " + loc);
 						if(i == loc) {
-							if(loc==0 || loc==60 || loc==40|| loc==15|| loc==43) {
+							if(loc==46 || loc==60 || loc==40|| loc==15|| loc==43) {
 								image[loc].setIcon(bgEx);
 							}
 							else image[loc].setIcon(exist);
@@ -912,6 +957,7 @@ public class Pan extends JFrame implements ActionListener{
 					if(ch2[i]==true) {
 						for(int j=0; j<2; j++) {
 							if(i == P2[j].getLocation()) {
+								midcheck2[j]=0;
 								P2[j].goStart();
 							}
 						}
@@ -923,19 +969,19 @@ public class Pan extends JFrame implements ActionListener{
 					
 					for(int j = 0; j<71; j++) {
 						if(ch1[j] == false && ch2[j] == false) { //말이 없는 칸을 찾아서 버튼 변경
-							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
+							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(btn1);
 							}
 							else image[j].setIcon(btn2);
 						}
 						if(ch1[j] == true && ch2[j] == false) {
-							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
+							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(bgEx);
 							}
 							else image[j].setIcon(exist);
 						}
 						else if(ch1[j] == false && ch2[j] == true) {
-							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
+							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(bgEx2);
 							}
 							else image[j].setIcon(exist2);
@@ -965,7 +1011,7 @@ public class Pan extends JFrame implements ActionListener{
 					throwY = false; //다음 턴에서 윷을 던질 수 있도록 함
 					
 					if(mall==1 && bfmv2[0]==0) {
-						if(afmv2[0]==0 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
+						if(afmv2[0]==46 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
 							image[afmv2[0]].setIcon(bgEx2);
 						}
 						else image[afmv2[0]].setIcon(exist2);
@@ -975,7 +1021,7 @@ public class Pan extends JFrame implements ActionListener{
 						System.out.println("location : " + P2[0].getLocation());
 					}
 					else if(mall==2 && bfmv2[1]==0) {
-						if(afmv2[1]==0 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
+						if(afmv2[1]==46 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
 							image[afmv2[1]].setIcon(bgEx2);
 						}
 						else image[afmv2[1]].setIcon(exist2);
@@ -986,14 +1032,55 @@ public class Pan extends JFrame implements ActionListener{
 					else for(int j = 0; j<2; j++) { // 업기
 						loc = P2[j].getLocation() + p2rd.get(num2);
 						
-						if(loc==5) loc = 60;
-						else if(loc==10) loc = 40;
-						else if(loc==63) loc = 43;
-						else if(loc>=66) loc -= 51;
+						if(loc == 5)	{
+							System.out.println("---");
+							loc=60;
+							//모 나왔을때 옆으로 가는거
+						}
+						else if(loc==10) {
+							System.out.println("---");
+							loc=40;
+					//		location=location+a.yutDun();
+							//두번 쨰 꺽는 구간 
+						}else if(loc==14&&checkNum2[j]==1) {
+							System.out.println("---");
+							loc=65;
+					//		location=location+a.yutDun();
+							//두번 쨰 꺽는 구간 
+						}
 						
+						else if(loc == 63) {
+							System.out.println("---");
+							loc-=20;
+							midcheck2[j]=1;
+						//	location+=a.yutDun();
+						}	//중앙에 도착했을 때 꺽기
+						else if (loc==42&&midcheck2[j]==1) {
+							loc=62;
+						}
+						else if(loc>65) {
+							System.out.println("---");
+							loc-=51;
+							checkNum2[j]=1;//온 방향대로 백도
+						}
+						else if(loc==59) {
+							System.out.println("---");
+							loc = 4;//모 자리에서 백도
+						}
+						else if(loc==20) {
+							System.out.println("---");
+							loc=46;//마지막은 46으로 통일
+							checkNum2[j]=1;
+						}else if(loc==45&&checkNum2[j]==1) {
+							System.out.println("---");
+							loc=19;// 온 방향대로 백도
+						}else if(loc == 39) {
+							System.out.println("---");
+							loc=9;
+						}
 						System.out.println("i ; " + i + "  P2[j].getLocation() + p2rd ; " + loc);
 						if(i == loc) {
-							if(loc==0 || loc==60 || loc==40|| loc==15|| loc==43) {
+							if(loc==46 || loc==60 || loc==40|| loc==15|| loc==43) {
 								image[loc].setIcon(bgEx);
 							}
 							else image[loc].setIcon(exist);
@@ -1008,6 +1095,8 @@ public class Pan extends JFrame implements ActionListener{
 						for(int j=0; j<2; j++) {
 							if(i == P1[j].getLocation()) {
 								P1[j].goStart();
+								midcheck1[j]=0;
+								ch1[loc]=false;
 							}
 						}
 						p2rd.remove(num2);
@@ -1018,24 +1107,25 @@ public class Pan extends JFrame implements ActionListener{
 					
 					for(int j = 0; j<71; j++) {
 						if(ch1[j] == false && ch2[j] == false) { //말이 없는 칸을 찾아서 버튼 변경
-							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
+							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(btn1);
 							}
 							else image[j].setIcon(btn2);
 						}
 						if(ch1[j] == true && ch2[j] == false) {
-							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
+							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(bgEx);
 							}
 							else image[j].setIcon(exist);
 						}
 						else if(ch1[j] == false && ch2[j] == true) {
-							if(j==0 || j==60 || j== 40 || j==15 || j==43 ) {
+							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(bgEx2);
 							}
 							else image[j].setIcon(exist2);
 						}
 					}
+					
 					p2rd.remove(num2);
 					System.out.println(p2rd.size());
 					if(0!=p2rd.size()) 
