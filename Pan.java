@@ -1,5 +1,9 @@
 package teamproject;
-//판 넘 바뀌는 부분에서 백도 수정 필요
+/***1. 판 num 바뀌는 부분에서 백도 수정 필요
+ * 2. 윷, 모 나온 후 상대 말 잡았을 때 한번 더 안던지는 거 수정 필요
+ * 3. 윷, 모로 상대 말 잡았을 때 차례가 상대로 넘어가는 거 수정 필요(해결)
+ * 4. player1 윷, 모 나왔을 때 한번 더 안던지는 거 수정 필요(해결)
+ * */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -523,6 +527,7 @@ public class Pan extends JFrame implements ActionListener{
 				
 				if(testnum<=3) {
 					throwY = true;
+					chance1=false;
 				System.out.println("P1. Which mall : ");
 				mall = keyboard.nextInt(); // 말 선택
 				
@@ -568,7 +573,7 @@ public class Pan extends JFrame implements ActionListener{
 				else if((mall == 1 && afmv1[0]<0) || (mall == 2 && afmv1[1]<0)){
 					throwY = false;
 					JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
-
+					p1rd.remove(num1);
 					player1 = false;
 					player2 = true;
 					
@@ -600,6 +605,7 @@ public class Pan extends JFrame implements ActionListener{
 				if(testnum2<=3) {
 				//		p2rd = y.yutDun(); //p1rd : 윷 던져서 숫자 받아옴
 				throwY = true;
+				chance2=false;
 		//		System.out.println("윷 : " + p2rd);
 		//		if (p2rd == 4 || p2rd == 5) chance2 = true;
 				
@@ -649,7 +655,7 @@ public class Pan extends JFrame implements ActionListener{
 				else if((mall == 1 && afmv2[0]<0) || (mall == 2 && afmv2[1]<0)){
 					throwY = false;
 					JOptionPane.showMessageDialog(null, "You cannot move", "", JOptionPane.INFORMATION_MESSAGE);
-
+					p2rd.remove(num2);
 					player1 = true;
 					player2 = false;
 					
@@ -712,7 +718,7 @@ public class Pan extends JFrame implements ActionListener{
 								P2[j].goStart();
 							}
 						}
-						p1rd.remove(num1);
+					//	p1rd.remove(num1);
 						JOptionPane.showMessageDialog(null, "You catch the Player2's mal", "Catch", JOptionPane.INFORMATION_MESSAGE);
 						ch2[i]=false;
 						chance1 =true;
@@ -742,8 +748,8 @@ public class Pan extends JFrame implements ActionListener{
 					System.out.println(p1rd.size());
 					if(0!=p1rd.size()) 
 						chance1=true;
-					else
-						chance1=false;
+				//	else
+				//		chance1=false;
 					if(chance1) {
 						player1 = true;
 						player2 = false;
@@ -837,8 +843,8 @@ public class Pan extends JFrame implements ActionListener{
 					System.out.println(p2rd.size());
 					if(0!=p2rd.size()) 
 						chance2=true;
-					else
-						chance2=false;
+				//	else
+				//		chance2=false;
 					if(chance2) {
 						player2 = true;
 						player1 = false;
