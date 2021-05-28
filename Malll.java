@@ -1,16 +1,16 @@
-package teamproject;
+
 
 public class Malll {
-	private int location;//¸» À§Ä¡
-	private int tryNumber;// ¸ğ³ª À·, Àâ¾ÒÀ»¶§ ÇÑ¹ø ´õ ´øÁú ¼ö ÀÖµµ·Ï Ä«¿îÆ®
-	private int num;//³´´ÂÁö ¾È³´´ÂÁö È®ÀÎ
+	private int location;//ë§ ìœ„ì¹˜
+	private int tryNumber;// ëª¨ë‚˜ ìœ·, ì¡ì•˜ì„ë•Œ í•œë²ˆ ë” ë˜ì§ˆ ìˆ˜ ìˆë„ë¡ ì¹´ìš´íŠ¸
+	private int num;//ë‚«ëŠ”ì§€ ì•ˆë‚«ëŠ”ì§€ í™•ì¸
 	private int bflocation;
 	private int checkNum;
 	private int midcheck;
 	public Malll() {
 		location = 0;
 		tryNumber = 0;
-		num = 0;//¹éµµÇÒ ¶§ ¾î´À ¹æÇâ¿¡¼­ ¿Ô´ÂÁö È®ÀÎ
+		num = 0;//ë°±ë„í•  ë•Œ ì–´ëŠ ë°©í–¥ì—ì„œ ì™”ëŠ”ì§€ í™•ì¸
 		bflocation=0;
 		checkNum=0;
 		midcheck=0;
@@ -45,72 +45,133 @@ public class Malll {
 	}public void setcheckNum(int a) {
 		checkNum = a;
 	}
-	public int move() {//¸» ÀÌµ¿ 
+	public int move() {//ë§ ì´ë™ 
 		if(location == 5)	{
-			System.out.println("---");
-			location=60;
-			//¸ğ ³ª¿ÔÀ»¶§ ¿·À¸·Î °¡´Â°Å
+			//System.out.println("---");
+			//quiz ì‹¤í–‰
+			int gameChanger = 0;
+			
+			Quiz quiz = new Quiz();			
+			quiz.setVisible(true);		
+			if(quiz.getGameChanger() == -1) {
+				goStart();
+			}else{
+				location=60;
+			}			
+			//ëª¨ ë‚˜ì™”ì„ë•Œ ì˜†ìœ¼ë¡œ ê°€ëŠ”ê±°
 		}
 		else if(location==10) {
-			System.out.println("---");
-			location=40;
+			//System.out.println("---");			
+					
+			// ê°€ìœ„ë°”ìœ„ë³´ ì‹¤í–‰
+			rockScissorPaper rsp = new rockScissorPaper();			
+			rsp.setVisible(true);		
+			if(rsp.getGameChanger() == -1) {
+				goStart();
+			}else{
+				location=40;
+			}
 	//		location=location+a.yutDun();
-			//µÎ¹ø ¤Š ²©´Â ±¸°£ 
+			//ë‘ë²ˆ ÂŠ êº½ëŠ” êµ¬ê°„ 
 		}else if(location==14&&checkNum==1) {
 			System.out.println("---");
 			location=65;
 	//		location=location+a.yutDun();
-			//µÎ¹ø ¤Š ²©´Â ±¸°£ 
+			//ë‘ë²ˆ ÂŠ êº½ëŠ” êµ¬ê°„ 
 		}
 		
+
+		else if(location == 15) {
+			//System.out.println("---");			
+					
+			// ê°€ìœ„ë°”ìœ„ë³´ ì‹¤í–‰
+			Lots lot = new Lots();
+			lot.setVisible(true);
+			if(lot.getGameChanger() == -1) {
+				goStart();
+			}else{
+				location = 15;
+			}
+	//		location=location+a.yutDun();
+			//ë‘ë²ˆ ÂŠ êº½ëŠ” êµ¬ê°„ 
+		}
+		
+
 		else if(location == 63) {
-			System.out.println("---");
+			//System.out.println("---");
 			location-=20;
 			midcheck=1;
 		//	location+=a.yutDun();
-		}	//Áß¾Ó¿¡ µµÂøÇßÀ» ¶§ ²©±â
+		}	//ì¤‘ì•™ì— ë„ì°©í–ˆì„ ë•Œ êº½ê¸°
 		else if(location>65) {
+
+			//System.out.println("---");
+			if(location == 66) {
+				//ë½‘ê¸° ì‹¤í–‰
+				Lots lot = new Lots();
+				lot.setVisible(true);
+				if(lot.getGameChanger() == -1) {
+					goStart();
+				}else{
+					location = 15;
+				}
+			}
+			else {
+				location -= 51;
+			}			
+		}
+		else if(location==59) {
+			//System.out.println("---");
+			location = 4;
+		}
+		else if(location==46) {
+			//System.out.println("---");
+			location=0;
+		}
+		else if(num==0){
+
 			System.out.println("---");
 			location-=51;
-			checkNum=1;//¿Â ¹æÇâ´ë·Î ¹éµµ
+			checkNum=1;//ì˜¨ ë°©í–¥ëŒ€ë¡œ ë°±ë„
 		}else if (location==42&&midcheck==1) {
 			location=62;
 		}
 		else if(location==59) {
 			System.out.println("---");
-			location = 4;//¸ğ ÀÚ¸®¿¡¼­ ¹éµµ
+			location = 4;//ëª¨ ìë¦¬ì—ì„œ ë°±ë„
 		}
 		else if(location==20) {
 			System.out.println("---");
-			location=46;//¸¶Áö¸·Àº 46À¸·Î ÅëÀÏ
+			location=46;//ë§ˆì§€ë§‰ì€ 46ìœ¼ë¡œ í†µì¼
 			checkNum=1;
 		}else if(location==45&&checkNum==1) {
 			System.out.println("---");
-			location=19;// ¿Â ¹æÇâ´ë·Î ¹éµµ
+			location=19;// ì˜¨ ë°©í–¥ëŒ€ë¡œ ë°±ë„
 		}else if(location == 39) {
 			System.out.println("---");
-			location=9;//2¹ø¤Š ¸ğ ÀÚ¸®¿¡¼­ ¹éµµ
+			location=9;//2ë²ˆÂŠ ëª¨ ìë¦¬ì—ì„œ ë°±ë„
 		}else if(location==0) {
 			location=46;
 		}
 		//else if(location == )
 		/*else if(num==0){
+    
 			//location+=a.yutDun();
-			//Àú·±°æ¿ì ¾øÀ»¶§ ´øÁö±â
-		}*/
+			//ì €ëŸ°ê²½ìš° ì—†ì„ë•Œ ë˜ì§€ê¸°
+		}
 		else if(location>46) {
-			//complite
+			num++;
 		}
 		if(num==0) {
 			if(20<location&&location<40) {
-				//ComplNanmall();//Á¤¼®À¸·Î µ¹¾Æ¼­ Å¬¸®¾î
-				//num++;
+				//ComplNanmall();//ì •ì„ìœ¼ë¡œ ëŒì•„ì„œ í´ë¦¬ì–´
+				num++;
 			}if(46<location&&location<60) {
-				//super.ComplNanmall();//´ë°¢¼± ¹æÇâÀ¸·Î µé¾î¿Í¼­ Å¬¸®¾î
-				//num++;
+				//super.ComplNanmall();//ëŒ€ê°ì„  ë°©í–¥ìœ¼ë¡œ ë“¤ì–´ì™€ì„œ í´ë¦¬ì–´
+				num++;
 			}if(71<location) {
 				//super.ComplNanmall();
-				//num++;//Ã³À½ ¸ğ °É¸° ÈÄ Å©°Ôµ¹¾Æ Å¬¸®¾î
+				num++;//ì²˜ìŒ ëª¨ ê±¸ë¦° í›„ í¬ê²ŒëŒì•„ í´ë¦¬ì–´
 			}
 		}
 		return location;
@@ -120,19 +181,19 @@ public class Malll {
 		if(lc2 == 5)	{
 			//System.out.println("---");
 			lc2=60;
-			//¸ğ ³ª¿ÔÀ»¶§ ¿·À¸·Î °¡´Â°Å
+			//ëª¨ ë‚˜ì™”ì„ë•Œ ì˜†ìœ¼ë¡œ ê°€ëŠ”ê±°
 		}
 		else if(lc2==10) {
 			//System.out.println("---");
 			lc2=40;
 	//		location=location+a.yutDun();
-			//µÎ¹ø ¤Š ²©´Â ±¸°£ 
+			//ë‘ë²ˆ ÂŠ êº½ëŠ” êµ¬ê°„ 
 		}
 		else if(lc2 == 63) {
 			//System.out.println("---");
 			lc2-=20;
 		//	location+=a.yutDun();
-		}	//Áß¾Ó¿¡ µµÂøÇßÀ» ¶§ ²©±â
+		}	//ì¤‘ì•™ì— ë„ì°©í–ˆì„ ë•Œ êº½ê¸°
 		else if(lc2>65) {
 			//System.out.println("---");
 			lc2-=51;
@@ -144,19 +205,19 @@ public class Malll {
 			lc2=46;
 		}else if(lc2==45&&checkNum==1) {
 		//	System.out.println("---");
-			lc2=19;// ¿Â ¹æÇâ´ë·Î ¹éµµ
+			lc2=19;// ì˜¨ ë°©í–¥ëŒ€ë¡œ ë°±ë„
 		}else if (lc2==42&&midcheck==1) {
 			lc2=62;
 		}else if(lc2 == 39) {
 	//		System.out.println("---");
-			lc2=9;//2¹ø¤Š ¸ğ ÀÚ¸®¿¡¼­ ¹éµµ
+			lc2=9;//2ë²ˆÂŠ ëª¨ ìë¦¬ì—ì„œ ë°±ë„
 		}
 		/*
 		 * else if(lc2==46) { //System.out.println("---"); lc2=0; }
 		 */
 		/*else if(num==0){
 			//location+=a.yutDun();
-			//Àú·±°æ¿ì ¾øÀ»¶§ ´øÁö±â
+			//ì €ëŸ°ê²½ìš° ì—†ì„ë•Œ ë˜ì§€ê¸°
 		}*/
 		else if(location>46) {
 			//complite
