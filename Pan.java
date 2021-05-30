@@ -1,5 +1,6 @@
-else if(player2 == true) {
-				if(e.getSource() == btn[i] && ch2[i] == true && throwY == true) { //ë²„íŠ¼(ì¹¸)ì´ ëˆŒë ¸ìŒ && ì¹¸ì— ë§ ì¡´ì¬ && ìœ· ë˜ì ¸ì§„ ìƒíƒœ
+for(int i = 0; i<71; i++) { //ÀÌµ¿
+			if(player1 == true) {//ÇÃ·¹ÀÌ¾î 1ÀÇ Â÷·Ê
+				if(e.getSource() == btn[i] && ch2[i] == true && throwY == true) { //¹öÆ°(Ä­)ÀÌ ´­·ÈÀ½ && Ä­¿¡ ¸» Á¸Àç && À· ´øÁ®Áø »óÅÂ
 					
 					if(mall==1 && bfmv2[0]==0) {
 						if(afmv2[0]==46 || afmv2[0]==60 || afmv2[0]==40|| afmv2[0]==15|| afmv2[0]==43) {
@@ -7,11 +8,10 @@ else if(player2 == true) {
 						}
 						else image[afmv2[0]].setIcon(Y1exist);
 						
-						P2[0].setLocation(p2rd.get(num2)); //1ë²ˆ ë§ ì´ë™í•œ ìœ„ì¹˜ ì €ì¥
-
-						System.out.println("Ch2[46]" + ch2[46]);
-						System.out.println("location : " + P2[0].getLocation());
+						P2[0].setLocation(p2rd.get(num2)); //1¹ø ¸» ÀÌµ¿ÇÑ À§Ä¡ ÀúÀå
+						System.out.println("Ch1[46]" + ch2[46]);
 					}
+					
 					else if(mall==2 && bfmv2[1]==0) {
 						if(afmv2[1]==46 || afmv2[1]==60 || afmv2[1]==40|| afmv2[1]==15|| afmv2[1]==43) {
 							image[afmv2[1]].setIcon(Y2bgexist);
@@ -19,10 +19,10 @@ else if(player2 == true) {
 						else image[afmv2[1]].setIcon(Y2exist);
 						
 						P2[1].setLocation(p2rd.get(num2));
-
-						System.out.println("Ch2[46]" + ch2[46]);
-						System.out.println("location : " + P2[1].getLocation());
+						System.out.println("Ch1[46]" + ch2[46]);
+						//System.out.println("location : " + P2[1].getLocation());
 					}
+					
 					else if(mall==3 && bfmv2[2]==0) {
 						if(afmv2[2]==46 || afmv2[2]==60 || afmv2[2]==40|| afmv2[2]==15|| afmv2[2]==43) {
 							image[afmv2[2]].setIcon(Y3bgexist);
@@ -30,10 +30,10 @@ else if(player2 == true) {
 						else image[afmv2[2]].setIcon(Y3exist);
 						
 						P2[2].setLocation(p2rd.get(num2));
-
-						System.out.println("Ch2[46]" + ch2[46]);
+						System.out.println("Ch1[46]" + ch2[46]);
 						System.out.println("location : " + P2[2].getLocation());
 					}
+					
 					else if(mall==4 && bfmv2[3]==0) {
 						if(afmv2[3]==46 || afmv2[3]==60 || afmv2[3]==40|| afmv2[3]==15|| afmv2[3]==43) {
 							image[afmv2[3]].setIcon(Y4bgexist);
@@ -41,112 +41,110 @@ else if(player2 == true) {
 						else image[afmv2[3]].setIcon(Y4exist);
 						
 						P2[3].setLocation(p2rd.get(num2));
-						System.out.println("Ch2[46]" + ch2[46]);
+						System.out.println("Ch1[46]" + ch2[46]);
 						System.out.println("location : " + P2[3].getLocation());
 					}
-					else for(int j = 0; j<4; j++) { // ì—…ê¸°
+					
+					else for(int j = 0; j<4; j++) { // ¾÷±â
 						loc = P2[j].getLocation() + p2rd.get(num2);
 						
 						if(loc == 5)	{
-								loc=60;
-						}
-						else if(loc==10) {
-							//System.out.println("---");			
-								loc=40;
-						}else if(loc==14&&checkNum2[j]==1) {
-							System.out.println("---");
-							loc=65;
-					//		location=location+a.yutDun();
-							//ë‘ë²ˆ ÂŠ êº½ëŠ” êµ¬ê°„ 
-						}
-						
+							loc=60;
+					}
+					else if(loc==10) {
+						//System.out.println("---");			
+							loc=40;
+					}else if(loc==14&&checkNum2[j]==1) {
+						System.out.println("---");
+						loc=65;
+				//		location=location+a.yutDun();
+						//µÎ¹ø ? ²©´Â ±¸°£ 
+					}
+					
 
-						else if(loc == 63) {
-							//System.out.println("---");
-							loc-=20;
-							midcheck2[j]=1;
-						//	location+=a.yutDun();
-						}	//ì¤‘ì•™ì— ë„ì°©í–ˆì„ ë•Œ êº½ê¸°
-						else if(loc>65) {
+					else if(loc == 63) {
+						//System.out.println("---");
+						loc-=20;
+						midcheck1[j]=1;
+					//	location+=a.yutDun();
+					}	//Áß¾Ó¿¡ µµÂøÇßÀ» ¶§ ²©±â
+					else if(loc>65) {
 
-							//System.out.println("---");
-							if(loc == 66) {
-								//ë½‘ê¸° ì‹¤í–‰
-								loc = 15;
-							}
-							else if(loc>66){
-								loc -= 51;
-							}		
-							checkNum2[j]=1;
+						//System.out.println("---");
+						if(loc == 66) {
+							//»Ì±â ½ÇÇà
+							loc = 15;
 						}
-						else if(loc==59) {
-							//System.out.println("---");
-							loc = 4;
-						}
-						else if(loc==46) {
-							//System.out.println("---");
-							loc=0;
-						}
-						else if (loc==42&&midcheck2[j]==1) {
-							loc=62;
-						}
-						else if(loc==59) {
-							System.out.println("---");
-							loc = 4;//ëª¨ ìë¦¬ì—ì„œ ë°±ë„
-						}
-						else if(loc==20) {
-							System.out.println("---");
-							loc=46;//ë§ˆì§€ë§‰ì€ 46ìœ¼ë¡œ í†µì¼
-							checkNum2[j]=1;
-						}else if(loc==45&&checkNum2[j]==1) {
-							System.out.println("---");
-							loc=19;// ì˜¨ ë°©í–¥ëŒ€ë¡œ ë°±ë„
-						}else if(loc == 39) {
-							System.out.println("---");
-							loc=9;//2ë²ˆÂŠ ëª¨ ìë¦¬ì—ì„œ ë°±ë„
-						}
+						else if(loc>66){
+							loc -= 51;
+						}		
+						checkNum2[j]=1;
+					}
+					else if(loc==59) {
+						//System.out.println("---");
+						loc = 4;
+					}
+					else if (loc==42&&midcheck1[j]==1) {
+						loc=62;
+					}
+					else if(loc==59) {
+						System.out.println("---");
+						loc = 4;//¸ğ ÀÚ¸®¿¡¼­ ¹éµµ
+					}
+					else if(loc==20) {
+						System.out.println("---");
+						loc=46;//¸¶Áö¸·Àº 46À¸·Î ÅëÀÏ
+						checkNum2[j]=1;
+					}else if(loc==45&&checkNum2[j]==1) {
+						System.out.println("---");
+						loc=19;// ¿Â ¹æÇâ´ë·Î ¹éµµ
+					}else if(loc == 39) {
+						System.out.println("---");
+						loc=9;//2¹ø? ¸ğ ÀÚ¸®¿¡¼­ ¹éµµ
+					}else if(loc==0) {
+						loc=46;
+					}
 						
+						System.out.println("i ; " + i + "  P2[j].getLocation() + p2rd ; " + loc);
 						if(((P2[j].getLocation() + p2rd.get(num2)>20 && P2[j].getLocation() + p2rd.get(num2)<40) || (P2[j].getLocation() + p2rd.get(num2)>46 && P2[j].getLocation() + p2rd.get(num2)<60))){
-							if(j==0 && P2[mall-1].getLocation() + p2rd.get(num2) == loc) {
-								yellowMall1Button.setEnabled(false);
+							if(j==0 && P2[mall-1].getLocation() + p2rd.get(num2)==loc) {
+								redmall1Button.setEnabled(false);
 								P2[0].success();
 								P2[0].setLocation(p2rd.get(num2));
 							}
-							else if(j==1 && P2[mall-1].getLocation() + p2rd.get(num2) == loc) {
-								yellowMall2Button.setEnabled(false);
+							else if(j==1 && P2[mall-1].getLocation() + p2rd.get(num2)==loc) {
+								redmall2Button.setEnabled(false);
 								P2[1].success();
 								P2[1].setLocation(p2rd.get(num2));
 							}
-							else if(j==2 && P2[mall-1].getLocation() + p2rd.get(num2) == loc) {
-								yellowMall3Button.setEnabled(false);
+							else if(j==2 && P2[mall-1].getLocation() + p2rd.get(num2)==loc) {
+								redmall3Button.setEnabled(false);
 								P2[2].success();
 								P2[2].setLocation(p2rd.get(num2));
 							}
-							else if(j==3 && P2[mall-1].getLocation() + p2rd.get(num2) == loc) {
-								yellowMall4Button.setEnabled(false);
+							else if(j==3 && P2[mall-1].getLocation() + p2rd.get(num2)==loc) {
+								redmall4Button.setEnabled(false);
 								P2[3].success();
 								P2[3].setLocation(p2rd.get(num2));
 							}
 						}
-						
-						System.out.println("i ; " + i + "  P2[j].getLocation() + p2rd ; " + loc);
 						if(i == loc) {
 							if(loc==46 || loc==60 || loc==40|| loc==15|| loc==43) {
-								if(j==0) {
-									image[loc].setIcon(Y1bgexist);
-								}
+								if(j==0) image[loc].setIcon(Y1bgexist);
 								else if(j==1) image[loc].setIcon(Y2bgexist);
 								else if(j==2) image[loc].setIcon(Y3bgexist);
 								else if(j==3) image[loc].setIcon(Y4bgexist);
 							}
-							else{
+							else {
 								if(j==0) image[loc].setIcon(Y1exist);
 								else if(j==1) image[loc].setIcon(Y2exist);
 								else if(j==2) image[loc].setIcon(Y3exist);
 								else if(j==3) image[loc].setIcon(Y4exist);
 							}
-							P2[j].setLocation(p2rd.get(num2)); //1ë²ˆ ë§ ì´ë™í•œ ìœ„ì¹˜ ì €ì¥
+							
+							P2[j].setLocation(p2rd.get(num2)); //1¹ø ¸» ÀÌµ¿ÇÑ À§Ä¡ ÀúÀå
 							System.out.println("location : " + P2[j].getLocation());
+							
 						}
 					}
 					if((ch2[1] == true) && (i==1)) {
@@ -154,35 +152,40 @@ else if(player2 == true) {
 						if((loc>20 && loc<40) || (loc>46 && loc<60)) {
 							ch2[1] = false;
 							image[1].setIcon(btn2);
+							
 						}
 					}
-			
-					if(i==60||i==5) {// ê²Œì„ ë„£ëŠ” ê²ƒ
-						
-						  Quiz quiz = new Quiz();
-						  quiz.setVisible(true);
-						  if(quiz.getGameChanger() ==-1)
-						  { 
-							  for(int j=0; j<4; j++) { 
-							  if(i == P2[j].getLocation()) {
-						  P2[j].goStart(); checkNum2[j]=0; midcheck2[j]=0; 
-						  
-							  } 
-						  
-							  }
-						  
-						  ch2[i]=false; }
-						  
-						 			}else if(i==10||i==40) {
-						rockScissorPaper rsp = new rockScissorPaper();			
-						rsp.setVisible(true);		
-						if(rsp.getGameChanger() == -1) {
-							
+					
+					if(i==60||i==5) {// °ÔÀÓ ³Ö´Â °Í
+						/*
+						 * Quiz quiz = new Quiz(); quiz.setVisible(true);
+						 */
+					
+						if(quiz() == -1) {
 							for(int j=0; j<4; j++) {
 								if(i == P2[j].getLocation()) {
 									P2[j].goStart();
 									checkNum2[j]=0;
-									midcheck2[j]=0;
+									midcheck1[j]=0;
+									System.out.println("check");
+								}
+							}
+							System.out.println("check");
+							ch2[i]=false;
+						}
+						
+					
+						System.out.println("check");
+					}else if(i==10||i==40) {
+						rockScissorPaper rsp = new rockScissorPaper();			
+						rsp.setVisible(true);		
+						if(rsp.getGameChanger() == -1) {
+							for(int j=0; j<4; j++) {
+								if(i == P2[j].getLocation()) {
+									P2[j].goStart();
+									checkNum2[j]=0;
+									midcheck1[j]=0;
+									System.out.println("check"+ rsp.getGameChanger());
 								}
 							}
 							ch2[i]=false;
@@ -190,7 +193,7 @@ else if(player2 == true) {
 						
 					}else if(i==15||i==66) {
 						
-							//ë½‘ê¸° ì‹¤í–‰
+							//»Ì±â ½ÇÇà
 							Lots lot = new Lots();
 							lot.setVisible(true);
 							if(lot.getGameChanger() == -1) {
@@ -198,7 +201,8 @@ else if(player2 == true) {
 									if(i == P2[j].getLocation()) {
 										P2[j].goStart();
 										checkNum2[j]=0;
-										midcheck2[j]=0;
+										midcheck1[j]=0;
+										System.out.println("check"+lot.getGameChanger());
 									}
 								}
 								ch2[i]=false;
@@ -206,32 +210,30 @@ else if(player2 == true) {
 						
 					}
 					
-					if(ch1[i]==true) {
+					if(ch2[i]==true) {
 						for(int j=0; j<4; j++) {
-							if(i == P1[j].getLocation()) {
-								P1[j].goStart();
+							if(i == P2[j].getLocation()) {
+								P2[j].goStart();
+								checkNum2[j]=0;
+								midcheck1[j]=0;
 							}
 						}
+						JOptionPane.showMessageDialog(null, "You catch the Player2's mal", "Catch", JOptionPane.INFORMATION_MESSAGE);
+						ch2[i]=false;
+						chance1 =true;
 						
-						JOptionPane.showMessageDialog(null, "You catch the Player1's mal", "Catch", JOptionPane.INFORMATION_MESSAGE);
-						ch1[i]=false;
-						chance2 =true;
 					}
 					
 					for(int j = 0; j<71; j++) {
-						if(ch1[j] == false && ch2[j] == false) { //ë§ì´ ì—†ëŠ” ì¹¸ì„ ì°¾ì•„ì„œ ë²„íŠ¼ ë³€ê²½
+						if(ch2[j] == false && ch2[j] == false) { //¸»ÀÌ ¾ø´Â Ä­À» Ã£¾Æ¼­ ¹öÆ° º¯°æ
 							if(j==46 || j==60 || j== 40 || j==15 || j==43 ) {
 								image[j].setIcon(btn1);
 							}
 							else image[j].setIcon(btn2);
 						}
 					}
+
+					System.out.println("Ch1[46]" + ch2[46]);
 					p2rd.remove(num2);
 					System.out.println(p2rd.size());
 					
-					for(int k=0; k<4; k++) {
-						if(P1[k].getLocation() != 0) mallLabel[k].setVisible(false);
-						if(P1[k].getLocation() == 0) mallLabel[k].setVisible(true);
-						if(P2[k].getLocation() != 0) mallLabel2[k].setVisible(false);
-						if(P2[k].getLocation() == 0) mallLabel2[k].setVisible(true);
-					}
